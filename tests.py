@@ -94,3 +94,18 @@ class TestBooksCollector:
         favorites = books_collector.get_list_of_favorites_books()
         assert favorites == ["Book1", "Book2"]
 
+    def test_add_new_book_valid_name_length(self, books_collector):
+        valid_book_name = "Некое название"
+        books_collector.add_new_book(valid_book_name)
+        assert valid_book_name in books_collector.books_genre
+
+    def test_add_new_book_too_short_name(self, books_collector):
+        short_book_name = ""
+        books_collector.add_new_book(short_book_name)
+        assert short_book_name not in books_collector.books_genre
+
+    def test_add_new_book_too_long_name(self, books_collector):
+        long_book_name = "a" * 42
+        books_collector.add_new_book(long_book_name)
+        assert long_book_name not in books_collector.books_genre
+
